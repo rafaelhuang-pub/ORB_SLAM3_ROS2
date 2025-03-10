@@ -1,0 +1,75 @@
+How to use
+Source the workspace
+
+$ source ~/colcon_ws/install/local_setup.bash
+
+Run orbslam mode, which you want.
+This repository only support MONO, STEREO, RGBD, STEREO-INERTIAL mode now.
+You can find vocabulary file and config file in here. (e.g. orbslam3_ros2/vocabulary/ORBvoc.txt, orbslam3_ros2/config/monocular/TUM1.yaml for monocular SLAM).
+
+MONO mode
+$ ros2 run orbslam3 mono PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE
+
+example：
+
+T1:
+ros2 run realsense2_camera realsense2_camera_node
+
+or
+ros2 launch realsense2_camera rs_launch.py
+
+T2:
+
+ros2 run orbslam3 mono src/orbslam3_ros2/vocabulary/ORBvoc.txt src/orbslam3_ros2/config/monocular/RealSense_D435i.yaml
+
+
+
+STEREO mode
+$ ros2 run orbslam3 stereo PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE BOOL_RECTIFY
+
+T1:
+ros2 launch realsense2_camera rs_launch.py enable_infra1:=true enable_infra2:=true enable_accel:=true enable_gyro:=true unite_imu_method:=2 infra_width:=640 infra_height:=480
+
+T2:
+ros2 run orbslam3 stereo src/orbslam3_ros2/vocabulary/ORBvoc.txt src/orbslam3_ros2/config/stereo/RealSense_D435i.yaml false
+
+
+RGBD mode
+$ ros2 run orbslam3 rgbd PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE
+
+T1:
+ros2 launch realsense2_camera rs_launch.py
+
+T2:
+ros2 run orbslam3 rgbd src/orbslam3_ros2/vocabulary/ORBvoc.txt src/orbslam3_ros2/config/rgb-d/RealSense_D435i.yaml
+
+STEREO-INERTIAL mode
+$ ros2 run orbslam3 stereo-inertial PATH_TO_VOCABULARY PATH_TO_YAML_CONFIG_FILE BOOL_RECTIFY [BOOL_EQUALIZE]
+
+example:
+
+T1:
+ros2 launch realsense2_camera rs_launch.py enable_infra1:=true enable_infra2:=true enable_accel:=true enable_gyro:=true unite_imu_method:=2 infra_width:=640 infra_height:=480
+
+T2:
+ros2 run orbslam3 stereo-inertial src/orbslam3_ros2/vocabulary/ORBvoc.txt src/orbslam3_ros2/config/stereo-inertial/RealSense_D435i.yaml false
+
+
+refer link:
+
+https://blog.csdn.net/m0_73800387/article/details/143316152
+
+
+https://blog.csdn.net/liiiuzy/article/details/136272727
+
+https://github.com/zang09/ORB_SLAM3_ROS2/tree/humble?tab=readme-ov-file
+
+https://github.com/UZ-SLAMLab/ORB_SLAM3/issues/793#issuecomment-2095639783
+
+https://github.com/zang09/ORB_SLAM3_ROS2/issues/24    ##fix issue "double free or corruption (out) " in rgbd mode
+https://github.com/fishyy119/ORB_SLAM3_ROS2/commit/1d3d2adcb99fa4d5d72a7290ed29bbc094c8a7a1
+
+
+https://blog.csdn.net/luyuhangGray/article/details/143575257?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-3-143575257-blog-143289722.235%5Ev43%5Epc_blog_bottom_relevance_base7&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-3-143575257-blog-143289722.235%5Ev43%5Epc_blog_bottom_relevance_base7
+
+
